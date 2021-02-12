@@ -6,9 +6,11 @@
 
   outputs = { self, nixpkgs, utils }: {
     overlay = final: prev: {
-      pythonOverlay = pself: psuper: {
-        xoundfile = pself.callPackage ./default.nix { };
-      };
+      pythonPackagesOverrides = (prev.pythonPackagesOverrides or []) ++ [
+        (self: super: {
+          xoundfile = self.callPackage ./. {};
+        })
+      ];
     };
   } // (utils.lib.eachSystem [ "x86_64-linux" ] (system: let
     # Our own overlay does not get applied to nixpkgs because that would lead to
@@ -20,11 +22,12 @@
       ];
     };
     python = let
-      mypython = pkgs.python3.override {
-        packageOverrides = pkgs.pythonOverlay;
-        self = mypython;
+      composeOverlays = pkgs.lib.foldl' pkgs.lib.composeExtensions (self: super: { });
+      self = pkgs.python3.override {
+        inherit self;
+        packageOverrides = composeOverlays pkgs.pythonPackagesOverrides;
       };
-    in mypython; 
+    in self; 
   in rec {
     packages = rec {
       # Development environment that includes our package, its dependencies
