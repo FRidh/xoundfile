@@ -126,7 +126,7 @@ def open_soundfile(filename, chunks=None, cache=False, lock=None):
     coords = {}
     # TODO should be part of the array?
     coords["channel"] = np.arange(descriptor.channels)
-    coords["time"] = np.arange(descriptor.frames) / descriptor.samplerate
+    #coords["time"] = np.arange(descriptor.frames)
 
     data = xarray.core.indexing.LazilyOuterIndexedArray(
         SoundFileArrayWrapper(manager, lock, soundfile_kwargs)
