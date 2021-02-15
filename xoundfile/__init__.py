@@ -132,7 +132,6 @@ def open_soundfile(filename, chunks=None, cache=False, lock=None):
         SoundFileArrayWrapper(manager, lock, soundfile_kwargs)
     )
 
-    # this lets you write arrays loaded with rasterio
     data = xarray.core.indexing.CopyOnWriteArray(data)
     if cache and chunks is None:
         data = xarray.core.indexing.MemoryCachedArray(data)
