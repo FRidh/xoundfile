@@ -76,7 +76,7 @@ class SoundFileArrayWrapper(xarray.backends.common.BackendArray):
         )
 
 
-def open_soundfile(filename, chunks=None, cache=False, lock=None):
+def open(filename, chunks=None, cache=False, lock=None):
     """Open a file with soundfile.
 
     Parameters

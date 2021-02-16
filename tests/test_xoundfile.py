@@ -8,8 +8,8 @@ import pytest
 @pytest.mark.parametrize(
     "function",
     [
-        (xf.open_soundfile),  # xarray
-        (lambda filename: xf.open_soundfile(filename, chunks=(10000, 2))),  # dask
+        (xf.open),  # xarray
+        (lambda filename: xf.open(filename, chunks=(10000, 2))),  # dask
     ],
 )
 def test_loading(tmpdir, function):

@@ -8,14 +8,14 @@ Lazy data array. Use `compute()` to load it or perform an operation on it:
 
 ```py
 import xoundfile as xf
-arr = xf.open_soundfile(filename)
+arr = xf.open(filename)
 arr + 1.
 ```
 
 Using Dask:
 
 ```py
-arr = xf.open_soundfile(filename, chunks=(10000, 2))
+arr = xf.open(filename, chunks=(None, 2))
 (arr + 1.).arr.compute()
 ```
 
