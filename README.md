@@ -19,4 +19,11 @@ arr = xf.open(filename, chunks=(None, 2))
 (arr + 1.).arr.compute()
 ```
 
+Or if you have multiple files that you'd like to merge into a single array:
+```py
+open = lambda filename: xf.open(filename, chunks(None, None))
+arr = xr.concat((map(open, files)), dim="files")
+arr.mean()
+```
+
 Note indexing and chunking is currently far from optimal.
