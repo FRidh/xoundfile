@@ -71,7 +71,7 @@ let
       pytest tests
     '';
 
-    doCheck = false;
+    doCheck = true;
 
     shellHook = ''
       export PYTHONPATH="$(pwd):"$PYTHONPATH""
