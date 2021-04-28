@@ -154,7 +154,11 @@ def open(filename, chunks=None, cache=False, lock=None):
         result = result.chunk(chunks, name_prefix=name_prefix, token=token)
 
     # Make the file closeable
-    # result.set_close(manager.close)
-    result._file_obj = manager
+    try:
+        # xarray 0.17 and newer
+        result.set_close(manager.close)
+    except AttributeError:
+        # older than 0.17
+        result._file_obj = manager  # pylint: disable=assigning-non-slot
 
     return result
